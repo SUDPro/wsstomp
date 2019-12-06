@@ -1,15 +1,21 @@
 package ru.itis.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import ru.itis.model.ChatMessage;
+import ru.itis.service.MessageService;
 
 @Controller
 public class ChatController {
+
+    @Autowired
+    MessageService service;
 
     @MessageMapping("/chat.sendMessage")
     @SendTo("/topic/public")
@@ -26,7 +32,8 @@ public class ChatController {
     }
 
     @GetMapping("/")
-    public String getPage(){
+    public String getPage(ModelMap modelMap) {
+        modelMap.addAttribute("messages", service.getAllMessages());
         return "index";
     }
 

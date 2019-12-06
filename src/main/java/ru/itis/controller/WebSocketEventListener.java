@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.socket.messaging.SessionConnectedEvent;
 import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 import ru.itis.model.ChatMessage;
+import ru.itis.service.MessageService;
 
 @Component
 public class WebSocketEventListener {
@@ -18,6 +19,9 @@ public class WebSocketEventListener {
 
     @Autowired
     private SimpMessageSendingOperations messagingTemplate;
+
+    @Autowired
+    MessageService service;
 
     @EventListener
     public void handleWebSocketConnectListener(SessionConnectedEvent event) {
@@ -37,6 +41,8 @@ public class WebSocketEventListener {
             chatMessage.setSender(username);
 
             messagingTemplate.convertAndSend("/topic/public", chatMessage);
+
+            service.saveMessage(chatMessage);
         }
     }
 }
