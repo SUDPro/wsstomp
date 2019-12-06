@@ -8,7 +8,7 @@
 
 <div id="username-page">
     <div class="username-page-container">
-        <h1 class="title">Type your username</h1>
+        <h1 class="title">Your username:</h1>
         <form id="usernameForm" name="usernameForm">
             <div class="form-group">
                 <input type="text" id="name" placeholder="Username" autocomplete="off" class="form-control" />
@@ -23,10 +23,7 @@
 <div id="chat-page" class="hidden">
     <div class="chat-container">
         <div class="chat-header">
-            <h2>Spring WebSocket Chat Demo</h2>
-        </div>
-        <div class="connecting">
-            Connecting...
+            <h2>Chat</h2>
         </div>
         <ul id="messageArea">
 
@@ -52,7 +49,6 @@
     var messageForm = document.querySelector('#messageForm');
     var messageInput = document.querySelector('#message');
     var messageArea = document.querySelector('#messageArea');
-    var connectingElement = document.querySelector('.connecting');
 
     var stompClient = null;
     var username = null;
@@ -84,7 +80,6 @@
             JSON.stringify({sender: username, type: 'JOIN'})
         )
 
-        connectingElement.classList.add('hidden');
     }
 
 
@@ -118,10 +113,10 @@
 
         if(message.type === 'JOIN') {
             messageElement.classList.add('event-message');
-            message.content = message.sender + ' joined!';
+            message.content = message.sender + ' joined chat';
         } else if (message.type === 'LEAVE') {
             messageElement.classList.add('event-message');
-            message.content = message.sender + ' left!';
+            message.content = message.sender + ' left chat';
         } else {
             messageElement.classList.add('chat-message');
 

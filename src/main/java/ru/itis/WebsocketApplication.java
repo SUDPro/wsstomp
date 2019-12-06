@@ -1,13 +1,12 @@
 package ru.itis;
 
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class WebsocketDemoApplication {
+public class WebsocketApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(WebsocketDemoApplication.class, args);
+		SpringApplication.run(WebsocketApplication.class, args);
 	}
 }
